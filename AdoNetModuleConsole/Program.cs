@@ -33,23 +33,13 @@ namespace AdoNetModuleConsole
 
                 using (var reader = SelectAllCommandReader(tablename))
                 {
-                    if (reader.HasRows) // если есть данные
-                    {
-                        while (reader.Read()) // построчно считываем данные
-                        {
-                            var id = reader["id"];
-                            var name = reader.GetValue(1);
-                            var age = reader.GetValue(2);
-
-                            Console.WriteLine($"{id} \t {name} \t {age}");
-                        }
-                    }
+                    WievData2(reader);
                 }
 
 
                 Console.WriteLine("Отключаем БД!");
 
-                connector.DisconnectAsync();
+                //connector.DisconnectAsync();
 
 
                 //WievDate(tablename, data);
@@ -81,6 +71,36 @@ namespace AdoNetModuleConsole
 
 
             Console.ReadKey();
+        }
+
+        private static void WievData2(SqlDataReader reader)
+        {
+            if (reader.HasRows) // если есть данные
+            {
+                var columnList = new List<string>();
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    var name = reader.GetName(i);
+                    columnList.Add(name);
+                }
+
+                for (int i = 0; i < columnList.Count; i++)
+                {
+                    Console.Write($"{columnList[i]}\t");
+                }
+
+                Console.WriteLine();
+
+                while (reader.Read()) // построчно считываем данные
+                {
+                    var id = reader["id"];
+                    var name = reader.GetValue(1);
+                    var age = reader.GetValue(2);
+
+                    Console.WriteLine($"{id} \t {name} \t {age}");
+                }
+            }
         }
 
         private static void WievDate(string tablename, DataTable data)

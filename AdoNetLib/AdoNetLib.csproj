@@ -181,6 +181,7 @@
     <Compile Include="Configurations\ConnectionString.cs" />
     <Compile Include="DbExecutor.cs" />
     <Compile Include="MainConnector.cs" />
+    <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

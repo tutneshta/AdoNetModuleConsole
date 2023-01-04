@@ -20,7 +20,17 @@ namespace AdoNetModuleConsole
 
             manager.ShowData();
 
+            Console.WriteLine("Введите логин для удаления:");
+
+            var count = manager.DeleteUserByLogin(Console.ReadLine());
+
+
+            Console.WriteLine("Количество удаленных строк " + count);
+
+            manager.ShowData();
+
             manager.Disconnect();
+
 
             Console.ReadKey();
         }

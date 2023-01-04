@@ -11,10 +11,18 @@ namespace AdoNetLib
     {
         private MainConnector connector;
         private DbExecutor dbExecutor;
+        private Table userTable;
 
         public Manager()
         {
             connector = new MainConnector();
+
+            userTable = new Table();
+            userTable.Name = "NetworkUser";
+            userTable.ImportantField = "Login";
+            userTable.Fields.Add("Id");
+            userTable.Fields.Add("Login");
+            userTable.Fields.Add("Name");
         }
 
         public void Connect()
@@ -71,6 +79,11 @@ namespace AdoNetLib
             }
 
             Console.WriteLine();
+        }
+
+        public int DeleteUserByLogin(string value)
+        {
+            return dbExecutor.DeleteByColumn(userTable.Name, userTable.ImportantField, value);
         }
     }
 }
